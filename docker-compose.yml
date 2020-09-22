@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  product-postgres:
+    image: product-postgres
+    build:
+      context: resources/postgres/
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+
+  product-api:
+    build: .
+    ports:
+      - 8080:8080
+    links:
+      - product-postgres
+    depends_on:
+      - product-postgres
